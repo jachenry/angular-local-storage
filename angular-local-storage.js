@@ -70,9 +70,9 @@ angularLocalStorage.provider('localStorageService', function() {
     var storageType = this.storageType;
     var webStorage = $window[storageType];
 
-    // When Angular's $document[0] is not available
-    if (!$document[0]) {
-      $document[0] = document;
+    // When Angular's $document is not available
+    if (!$document) {
+      $document = angular.element(document);
     }
 
     // If there is a prefix set in the config lets use that with an appended period for readability
