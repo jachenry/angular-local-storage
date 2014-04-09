@@ -69,11 +69,7 @@ angularLocalStorage.provider('localStorageService', function() {
     var notify = this.notify;
     var storageType = this.storageType;
     var webStorage = $window[storageType];
-
-    // When Angular's $document is not available
-    if (!$document) {
-      $document = angular.element(document);
-    }
+    var document = $document ? $document[0] : document;
 
     // If there is a prefix set in the config lets use that with an appended period for readability
     if (prefix.substr(-1) !== '.') {
@@ -245,8 +241,8 @@ angularLocalStorage.provider('localStorageService', function() {
     var browserSupportsCookies = function() {
       try {
         return navigator.cookieEnabled ||
-          ("cookie" in $document[0] && ($document[0].cookie.length > 0 ||
-          ($document[0].cookie = "test").indexOf.call($document[0].cookie, "test") > -1));
+          ("cookie" in document && (document.cookie.length > 0 ||
+          (document.cookie = "test").indexOf.call(document.cookie, "test") > -1));
       } catch (e) {
           $rootScope.$broadcast('LocalStorageModule.notification.error', e.message);
           return false;
@@ -286,7 +282,7 @@ angularLocalStorage.provider('localStorageService', function() {
           if(cookie.domain){
             cookieDomain = "; domain=" + cookie.domain;
           }
-          $document[0].cookie = prefix + key + "=" + encodeURIComponent(value) + expiry + cookiePath + cookieDomain;
+          document.cookie = prefix + key + "=" + encodeURIComponent(value) + expiry + cookiePath + cookieDomain;
         }
       } catch (e) {
         $rootScope.$broadcast('LocalStorageModule.notification.error',e.message);
@@ -303,7 +299,7 @@ angularLocalStorage.provider('localStorageService', function() {
         return false;
       }
 
-      var cookies = $document[0].cookie && $document[0].cookie.split(';') || [];
+      var cookies = document.cookie && document.cookie.split(';') || [];
       for(var i=0; i < cookies.length; i++) {
         var thisCookie = cookies[i];
         while (thisCookie.charAt(0) === ' ') {
@@ -323,7 +319,7 @@ angularLocalStorage.provider('localStorageService', function() {
     var clearAllFromCookies = function () {
       var thisCookie = null, thisKey = null;
       var prefixLength = prefix.length;
-      var cookies = $document[0].cookie.split(';');
+      var cookies = document.cookie.split(';');
       for(var i = 0; i < cookies.length; i++) {
         thisCookie = cookies[i];
         
