@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/grevory/angular-local-storage.git"
+    "url": "https://github.com/jachenry/angular-local-storage.git"
   },
   "keywords": [
     "AngularJS",
@@ -18,7 +18,7 @@
   "author": "grevory <greg@gregpike.ca>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/grevory/angular-local-storage/issues"
+    "url": "https://github.com/jachenry/angular-local-storage/issues"
   },
   "dependencies": {
     "grunt": "~0.4.1",
