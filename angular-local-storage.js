@@ -251,11 +251,11 @@ angularLocalStorage.provider('localStorageService', function() {
 
       var prefixLength = prefix.length;
 
-      for (var key in webStorage) {
+      for (var key in storage) {
         // Only remove items that are for this app and match the regular expression
         if (testRegex.test(key)) {
           try {
-            removeFromLocalStorage(key.substr(prefixLength));
+            removeFromLocalStorage(key.substr(prefixLength), type);
           } catch (e) {
             $rootScope.$broadcast('LocalStorageModule.notification.error',e.message);
             return clearAllFromCookies();
